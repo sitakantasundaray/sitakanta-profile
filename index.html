@@ -63,9 +63,9 @@
     </section>
 
     <section class="section summary-section" aria-labelledby="summary-title">
-      <div class="section-heading">
+        <div class="section-heading">
         <div class="summary-avatar" aria-hidden="true">
-          <span class="avatar" id="profileAvatar" style="background-image: url('assets/profile.png');"></span>
+          <span class="avatar" id="profileAvatarSmall" style="background-image: url('assets/profile.png');"></span>
         </div>
         <p class="eyebrow">Profile</p>
         <h2 id="summary-title">Professional Summary</h2>
@@ -292,14 +292,13 @@
     </section>
   </main>
 
-  <script>
+    <script>
     // Profile photo picker: preview chosen image
     (function () {
       const input = document.getElementById('fileInput');
-      const avatar = document.getElementById('profileAvatar');
-      const avatarSmall = document.getElementById('profileAvatarSmall');
+      const avatars = document.querySelectorAll('.avatar');
 
-      if (!input || !avatar) return;
+      if (!input || avatars.length === 0) return;
 
       input.addEventListener('change', function (e) {
         const file = e.target.files && e.target.files[0];
@@ -309,12 +308,10 @@
         const reader = new FileReader();
         reader.onload = function (ev) {
           const url = ev.target.result;
-          avatar.style.backgroundImage = `url('${url}')`;
-          avatar.classList.add('has-photo');
-          if (avatarSmall) {
-            avatarSmall.style.backgroundImage = `url('${url}')`;
-            avatarSmall.classList.add('has-photo');
-          }
+          avatars.forEach(av => {
+            av.style.backgroundImage = `url('${url}')`;
+            av.classList.add('has-photo');
+          });
         };
         reader.readAsDataURL(file);
       });
