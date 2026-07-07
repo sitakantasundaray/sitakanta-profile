@@ -178,18 +178,23 @@ main {
 }
 
 .photo-picker {
+  position: relative;
   display: inline-grid;
   gap: 9px;
   margin-bottom: 18px;
   cursor: pointer;
+  align-items: center;
+  justify-items: center;
 }
 
 .photo-picker input {
   position: absolute;
-  width: 1px;
-  height: 1px;
+  inset: 0;
+  width: 100%;
+  height: 100%;
   opacity: 0;
-  pointer-events: none;
+  pointer-events: auto;
+  cursor: pointer;
 }
 
 .avatar {
