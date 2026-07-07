@@ -39,11 +39,9 @@
         </div>
       </div>
       <aside class="profile-panel" aria-label="Profile highlights">
-        <label class="photo-picker" aria-label="Click to change profile photo">
-          <input id="profilePhotoInput" type="file" accept="image/*" />
-          <span class="avatar" id="profileAvatar">SS</span>
-          <span class="photo-hint">Click to change photo</span>
-        </label>
+        <div class="photo-holder" aria-hidden="true">
+          <span class="avatar" id="profileAvatar" style="background-image: url('assets/profile.jpg');"></span>
+        </div>
         <p class="role">Technical Lead</p>
         <dl>
           <div>
@@ -64,6 +62,9 @@
 
     <section class="section summary-section" aria-labelledby="summary-title">
       <div class="section-heading">
+        <div class="summary-avatar" aria-hidden="true">
+          <span class="avatar" id="profileAvatarSmall" style="background-image: url('assets/profile.png');"></span>
+        </div>
         <p class="eyebrow">Profile</p>
         <h2 id="summary-title">Professional Summary</h2>
       </div>
@@ -288,31 +289,6 @@
       </div>
     </section>
   </main>
-  <script>
-    const photoInput = document.getElementById("profilePhotoInput");
-    const avatar = document.getElementById("profileAvatar");
-    const savedPhoto = localStorage.getItem("sitakantaProfilePhoto");
 
-    if (savedPhoto) {
-      avatar.style.backgroundImage = `url(${savedPhoto})`;
-      avatar.textContent = "";
-      avatar.classList.add("has-photo");
-    }
-
-    photoInput.addEventListener("change", (event) => {
-      const file = event.target.files && event.target.files[0];
-      if (!file) return;
-
-      const reader = new FileReader();
-      reader.onload = () => {
-        const imageUrl = reader.result;
-        avatar.style.backgroundImage = `url(${imageUrl})`;
-        avatar.textContent = "";
-        avatar.classList.add("has-photo");
-        localStorage.setItem("sitakantaProfilePhoto", imageUrl);
-      };
-      reader.readAsDataURL(file);
-    });
-  </script>
 </body>
 </html>

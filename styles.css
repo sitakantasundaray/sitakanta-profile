@@ -213,6 +213,15 @@ main {
   background-color: #fff;
 }
 
+/* Smaller circular avatar used in the Profile summary section */
+.summary-avatar .avatar {
+  width: 72px;
+  height: 72px;
+  font-size: 1.35rem;
+  border-radius: 50%;
+  border-width: 2px;
+}
+
 .photo-hint {
   color: rgba(255, 255, 255, 0.72);
   font-size: 0.78rem;
