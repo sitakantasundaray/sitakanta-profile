@@ -39,9 +39,11 @@
         </div>
       </div>
       <aside class="profile-panel" aria-label="Profile highlights">
-        <div class="photo-holder" aria-hidden="true">
-          <span class="avatar" id="profileAvatar" style="background-image: url('assets/profile.jpg');"></span>
-        </div>
+        <label class="photo-picker" aria-label="Change profile photo" tabindex="0">
+          <input id="fileInput" type="file" accept="image/*" aria-label="Choose profile photo">
+          <span class="avatar" id="profileAvatar" style="background-image: url('assets/profile.png');"></span>
+          <span class="photo-hint">Click to change photo</span>
+        </label>
         <p class="role">Technical Lead</p>
         <dl>
           <div>
@@ -289,6 +291,35 @@
       </div>
     </section>
   </main>
+
+  <script>
+    // Profile photo picker: preview chosen image
+    (function () {
+      const input = document.getElementById('fileInput');
+      const avatar = document.getElementById('profileAvatar');
+      const avatarSmall = document.getElementById('profileAvatarSmall');
+
+      if (!input || !avatar) return;
+
+      input.addEventListener('change', function (e) {
+        const file = e.target.files && e.target.files[0];
+        if (!file) return;
+        if (!file.type.startsWith('image/')) return;
+
+        const reader = new FileReader();
+        reader.onload = function (ev) {
+          const url = ev.target.result;
+          avatar.style.backgroundImage = `url('${url}')`;
+          avatar.classList.add('has-photo');
+          if (avatarSmall) {
+            avatarSmall.style.backgroundImage = `url('${url}')`;
+            avatarSmall.classList.add('has-photo');
+          }
+        };
+        reader.readAsDataURL(file);
+      });
+    })();
+  </script>
 
 </body>
 </html>
