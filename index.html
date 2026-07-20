@@ -36,7 +36,7 @@
         <div class="hero-actions">
           <a class="primary-action" href="#projects">View Projects</a>
           <a class="secondary-action" href="mailto:sitakanta1306@gmail.com">Email Me</a>
-          <a class="secondary-action" id="downloadResume" href="#" style="display:none;" download>Download Resume</a>
+          <a class="secondary-action" id="downloadResume" href="assets/resume.docx" download>Download Resume</a>
         </div>
       </div>
       <aside class="profile-panel" aria-label="Profile highlights">
@@ -77,7 +77,7 @@
         environments.
       </p>
       <p>
-        Hands-on in .NET MAUI, Xamarin, Flutter, and Android, with a strong focus on
+        Hands-on in c#,.NET MAUI, Xamarin, Flutter, and Android, with a strong focus on
         architecture, performance optimization, enterprise integration, team mentoring, code
         quality, and AI-assisted development.
       </p>
@@ -91,7 +91,7 @@
       <div class="skill-grid">
         <article>
           <h3>Mobile Development</h3>
-          <p>.NET MAUI, Flutter, Xamarin, Android, Java, Kotlin, C#</p>
+          <p>.NET MAUI, Flutter, Xamarin, Android, Java, Kotlin, Dart, C#, .NET core , python</p>
         </article>
         <article>
           <h3>Architecture</h3>
@@ -291,10 +291,6 @@
     </section>
   </main>
 
-
-
-</main>
-
 <script>
   // Try common resume filenames in the assets folder and show download button if found
   (async function() {
@@ -312,11 +308,25 @@
 
     for (const path of candidates) {
       try {
-        const resp = await fetch(path, { method: 'HEAD' });
-        if (resp && (resp.status === 200 || resp.status === 0)) {
+        // Try HEAD first; some servers may not allow HEAD so fall back to GET
+        let resp = null;
+        try {
+          resp = await fetch(path, { method: 'HEAD' });
+        } catch (e) {
+          // HEAD failed, try GET
+        }
+
+        if (!resp || !resp.ok) {
+          try {
+            resp = await fetch(path, { method: 'GET' });
+          } catch (e) {
+            resp = null;
+          }
+        }
+
+        if (resp && resp.ok) {
           btn.href = path;
           btn.style.display = '';
-          // set filename for download attribute
           const parts = path.split('/');
           btn.setAttribute('download', parts[parts.length - 1]);
           return;
