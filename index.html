@@ -36,6 +36,7 @@
         <div class="hero-actions">
           <a class="primary-action" href="#projects">View Projects</a>
           <a class="secondary-action" href="mailto:sitakanta1306@gmail.com">Email Me</a>
+          <a class="secondary-action" id="downloadResume" href="#" style="display:none;" download>Download Resume</a>
         </div>
       </div>
       <aside class="profile-panel" aria-label="Profile highlights">
@@ -47,7 +48,7 @@
           <div>
             <dt>Experience</dt>
             <dd>13+ Years</dd>
-          </div>s
+          </div>
           <div>
             <dt>Location</dt>
             <dd>Hyderabad, India</dd>
@@ -291,6 +292,42 @@
   </main>
 
 
+
+</main>
+
+<script>
+  // Try common resume filenames in the assets folder and show download button if found
+  (async function() {
+    const candidates = [
+      'assets/Sitakanta_Sundaray_Profile.docx',
+      'assets/Sitakanta_Sundaray_Profile.doc',
+      'assets/Sitakanta_Sundaray_Profile.pdf',
+      'assets/resume.docx',
+      'assets/resume.pdf',
+      'assets/profile.docx',
+      'assets/profile.pdf'
+    ];
+    const btn = document.getElementById('downloadResume');
+    if (!btn) return;
+
+    for (const path of candidates) {
+      try {
+        const resp = await fetch(path, { method: 'HEAD' });
+        if (resp && (resp.status === 200 || resp.status === 0)) {
+          btn.href = path;
+          btn.style.display = '';
+          // set filename for download attribute
+          const parts = path.split('/');
+          btn.setAttribute('download', parts[parts.length - 1]);
+          return;
+        }
+      } catch (e) {
+        // ignore and try next
+      }
+    }
+    // If none found, keep button hidden
+  })();
+</script>
 
 </body>
 </html>
