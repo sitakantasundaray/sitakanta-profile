@@ -1,0 +1,33 @@
+# Ignore Visual Studio workspace and user files
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Visual Studio build outputs
+bin/
+obj/
+
+# Rider/IntelliJ
+.idea/
+
+# VS Code settings
+.vscode/
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Node
+node_modules/
+
+# Logs
+*.log
+
+# Temporary files
+*.tmp
+*.cache
+
+# Backup files
+*~

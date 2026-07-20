@@ -206,6 +206,7 @@ main {
   background-position: center;
   background-size: cover;
   transition: transform 160ms ease, border-color 160ms ease;
+  border-radius: 50%;
 }
 
 .photo-picker:hover .avatar,
