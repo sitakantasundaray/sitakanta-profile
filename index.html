@@ -36,6 +36,7 @@
         <div class="hero-actions">
           <a class="primary-action" href="#projects">View Projects</a>
           <a class="secondary-action" href="mailto:sitakanta1306@gmail.com">Email Me</a>
+          <a class="secondary-action" id="downloadResume" href="assets/resume.docx" download>Download Resume</a>
         </div>
       </div>
       <aside class="profile-panel" aria-label="Profile highlights">
@@ -47,7 +48,7 @@
           <div>
             <dt>Experience</dt>
             <dd>13+ Years</dd>
-          </div>s
+          </div>
           <div>
             <dt>Location</dt>
             <dd>Hyderabad, India</dd>
@@ -76,7 +77,7 @@
         environments.
       </p>
       <p>
-        Hands-on in .NET MAUI, Xamarin, Flutter, and Android, with a strong focus on
+        Hands-on in c#,.NET MAUI, Xamarin, Flutter, and Android, with a strong focus on
         architecture, performance optimization, enterprise integration, team mentoring, code
         quality, and AI-assisted development.
       </p>
@@ -90,7 +91,7 @@
       <div class="skill-grid">
         <article>
           <h3>Mobile Development</h3>
-          <p>.NET MAUI, Flutter, Xamarin, Android, Java, Kotlin, C#</p>
+          <p>.NET MAUI, Flutter, Xamarin, Android, Java, Kotlin, Dart, C#, .NET core , python</p>
         </article>
         <article>
           <h3>Architecture</h3>
@@ -290,7 +291,53 @@
     </section>
   </main>
 
+<script>
+  // Try common resume filenames in the assets folder and show download button if found
+  (async function() {
+    const candidates = [
+      'assets/Sitakanta_Sundaray_Profile.docx',
+      'assets/Sitakanta_Sundaray_Profile.doc',
+      'assets/Sitakanta_Sundaray_Profile.pdf',
+      'assets/resume.docx',
+      'assets/resume.pdf',
+      'assets/profile.docx',
+      'assets/profile.pdf'
+    ];
+    const btn = document.getElementById('downloadResume');
+    if (!btn) return;
 
+    for (const path of candidates) {
+      try {
+        // Try HEAD first; some servers may not allow HEAD so fall back to GET
+        let resp = null;
+        try {
+          resp = await fetch(path, { method: 'HEAD' });
+        } catch (e) {
+          // HEAD failed, try GET
+        }
+
+        if (!resp || !resp.ok) {
+          try {
+            resp = await fetch(path, { method: 'GET' });
+          } catch (e) {
+            resp = null;
+          }
+        }
+
+        if (resp && resp.ok) {
+          btn.href = path;
+          btn.style.display = '';
+          const parts = path.split('/');
+          btn.setAttribute('download', parts[parts.length - 1]);
+          return;
+        }
+      } catch (e) {
+        // ignore and try next
+      }
+    }
+    // If none found, keep button hidden
+  })();
+</script>
 
 </body>
 </html>
